@@ -3293,6 +3293,15 @@ NSString *getCityNameFromCode(NSString *cityCode) {
 
     // 获取原 label 文本
     NSString *originalText = self.timestampLabel.text;
+    
+    //判断是否有资源进视频的原生归属地，有则干掉
+    NSString *target = @"IP属地";
+    NSRange range = [originalText rangeOfString:target];
+
+    if (range.location != NSNotFound) {
+        NSString *newTextc = [originalText substringToIndex:range.location];
+        originalText = newTextc;
+    }
 
     // 如果 shengName 不 nil 或空字符串，才执行
     if (localShengName == nil || [localShengName isEqualToString:@""]) {
